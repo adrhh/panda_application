@@ -21,8 +21,8 @@ public class PandaApplicationSeleniumTest {
     
     private static WebDriver driver;
     
-    // @LocalServerPort
-    // private int port;
+    @LocalServerPort
+    private int port;
     
     @BeforeEach
     public void startup() throws InterruptedException, MalformedURLException {
