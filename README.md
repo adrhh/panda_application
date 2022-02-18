@@ -36,3 +36,5 @@ How to run?
     Selenium grid is available at localhost:4444
     Application (once it starts) is available at localhost:8080
 
+# TEST
+tututut
