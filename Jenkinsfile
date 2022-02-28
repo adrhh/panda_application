@@ -51,7 +51,7 @@ pipeline
         {
             steps
             {
-                sh "mvn package -Pdocker"
+                sh "mvn package -Pdocker -Dmaven.test.skip=true"
             }
         }
         stage('Run Docker app') 
@@ -71,13 +71,20 @@ pipeline
         }
         stage('Deploy') 
         {
+            // steps 
+            // {
+            //     withMaven(globalMavenSettingsConfig: 'null', jdk: 'null', maven: 'auto_maven', mavenSettingsConfig: 'MyMaven') 
+            //     {
+            //         sh "mvn deploy"
+            //     }
+            // }
             steps 
             {
-                withMaven(globalMavenSettingsConfig: 'null', jdk: 'null', maven: 'auto_maven', mavenSettingsConfig: 'MyMaven') 
+                configFileProvider([configFile(fileId: 'MyMaven', variable: 'MAVEN_GLOBAL_SETTINGS')])
                 {
-                    sh "mvn deploy"
+                    sh "mvn -gs $MAVEN_GLOBAL_SETTINGS deploy -Dmaven.test.skip=true -e"
                 }
-            }
+            } 
         }
         // post 
         // {
