@@ -63,10 +63,12 @@ pipeline {
                 {   
                     withCredentials([file(credentialsId: 'panda_pem', variable: 'temp_pem')]) 
                     {
+                        sh 'echo temp_pem'
                         sh "cp \$temp_pem ../panda.pem"
                     }
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS']]) 
                     {
+                        sh 'env|grep AWS'
                         sh 'terraform init && terraform apply -auto-approve -var-file panda.tfvars'
                     }
                 } 
