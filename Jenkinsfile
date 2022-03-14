@@ -50,7 +50,7 @@ pipeline {
         }
         stage('Deploy jar to artifactory') {
             steps {
-                configFileProvider([configFile(fileId: 'MyMaven', variable: 'MAVEN_GLOBAL_SETTINGS')])
+                configFileProvider([configFile(fileId: 'MySettings', variable: 'MAVEN_GLOBAL_SETTINGS')])
                 {
                     sh "mvn -gs $MAVEN_GLOBAL_SETTINGS deploy -Dmaven.test.skip=true -e"
                 }
@@ -95,7 +95,7 @@ pipeline {
             steps {
                 input 'Remove environment'
                 dir('infrastructure/terraform') { 
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '0cb683aa-1d60-4331-a628-16180159f021']]) {
                         sh 'terraform destroy -auto-approve -var-file panda.tfvars'
                     }
                 }
@@ -114,7 +114,7 @@ pipeline {
         {
             dir('infrastructure/terraform') 
             { 
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '0cb683aa-1d60-4331-a628-16180159f021']]) {
                     sh 'terraform destroy -auto-approve -var-file panda.tfvars'
                 }
             }
