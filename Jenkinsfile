@@ -48,14 +48,14 @@ pipeline {
                 sh 'echo Test OK'
             }
         }
-        stage('Deploy jar to artifactory') {
-            steps {
-                configFileProvider([configFile(fileId: 'MyMaven', variable: 'MAVEN_GLOBAL_SETTINGS')])
-                {
-                    sh "mvn -gs $MAVEN_GLOBAL_SETTINGS deploy -Dmaven.test.skip=true -e"
-                }
-            } 
-        }
+        // stage('Deploy jar to artifactory') {
+        //     steps {
+        //         configFileProvider([configFile(fileId: 'MyMaven', variable: 'MAVEN_GLOBAL_SETTINGS')])
+        //         {
+        //             sh "mvn -gs $MAVEN_GLOBAL_SETTINGS deploy -Dmaven.test.skip=true -e"
+        //         }
+        //     } 
+        // }
         stage('Run terraform') {
             steps 
             {
