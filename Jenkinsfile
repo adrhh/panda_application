@@ -50,7 +50,7 @@ pipeline {
         }
         stage('Deploy jar to artifactory') {
             steps {
-                configFileProvider([configFile(fileId: 'MySettings', variable: 'MAVEN_GLOBAL_SETTINGS')])
+                configFileProvider([configFile(fileId: 'MyMaven', variable: 'MAVEN_GLOBAL_SETTINGS')])
                 {
                     sh "mvn -gs $MAVEN_GLOBAL_SETTINGS deploy -Dmaven.test.skip=true -e"
                 }
